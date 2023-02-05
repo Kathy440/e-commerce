@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CartController!{% endblock %}
+
+{% block content %}
+
+
+    <main class="page-wrapper mb-5">
+        {% if cart | length > 0 %}
+            <div class="container position-relative index-2 pt-5 pb-lg-5 pb-md-4 pb-2">
+                <div class="row">
+                    <div class="col-lg-12 offset-lg-1 pt-1">
+                        <h2>Mon panier</h2>
+                        <p>Ajouter d'autres articles disponibles sur le site.
+                            <a href="{{ path('app_products') }}">
+                                Voir les artciles
+                            </a>
+                        </p>
+                        <button class="btn btn-danger btn-sm">
+                            <a href="{{ path('app_remove_all_cart') }}" class="text-white">Supprimer tout mon panier</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% set total = null %}
+            {% set numberItem = null %}
+            {% for item in cart %}
+                {% set total = total + (item.product.price * item.quantity) %}
+                {% set numberItem = numberItem + (item.quantity) %}
+                <div class="d-sm-flex align-items-center border-top py-4">
+                    <a href="" class="d-inline-block flex-shrink-0 rounded-1 p-sm-2 p-xl-3 mb-2 mb-sm-0">
+                        <img src="{{ item.product.illustration }}" alt="{{ item.product.name }}" width="110"
+                             class="img-fluid">
+                    </a>
+                    <div class="w-100 pt-1 ps-sm-4">
+                        <div class="d-flex">
+                            <div>
+                                <h3 class="h5 mb-2"><a
+                                            href="{{ path('app_product', { 'slug' : item.product.slug}) }}">{{ item.product.name }}</a>
+                                </h3>
+                                <p class="mb-2">{{ item.product.subtitle }}</p>
+                            </div>
+                            <div class="text-end ms-auto">
+                                <div class="mb-2">
+                                    {{ (item.product.price / 100 * item.quantity) | number_format(2, ',', '.') }} €
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex w-25 p-3 align-items-center">
+
+                            <a href="{{ path('app_cart_decrease', {id: item.product.id}) }}" data-decrement>
+                                <img src="{{ asset('assets/img/moins.png') }}" alt=""
+                                     style="width: 30px;margin-right: 30px;">
+                            </a>
+                            <input type="number" class="form-control" value="{{ item.quantity }}" readonly>
+
+
+                            <a href="{{ path('app_add_to_cart', {id: item.product.id}) }}"
+                               data-decrement>
+                                <img src="{{ asset('assets/img/plus.png') }}" alt=""
+                                     style="width: 30px;margin-left: 30px;">
+                            </a>
+
+
+                        </div>
+                        <div class="nav justify-content-end mt-n5 mt-sm-n3">
+                            <a class="nav-link p-2"
+                               href="{{ path('app_remove_to_cart', {id : item.product.id}) }}" data-bs-toggle="tooltip"
+                               title="Remove">
+                                Retirer l'article
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <hr>
+            <ul class="list-unstyled py-3 mb-0">
+                <li class="d-flex justify-content-between mb-2">Nombre de produits dans votre panier: <span
+                            class=""> {{ (numberItem) }}</span></li>
+            </ul>
+            <div class="d-flex align-items-center justify-content-between border-top pt-4">Total: <span
+                        class="text-dark ms-2">{{ ( total / 100) | number_format(2, ',', '.') }} €</span>
+
+            </div>
+            <a href="{{ path('app_order') }}" class="btn btn-lg btn-primary w-100 w-sm-auto mt-4"> Valider mon
+                panier</a>
+
+        {% else %}
+            <div class="container d-flex flex-column justify-content-center min-vh-100 py-5">
+                <div class="text-center pt-4 mt-lg-2">
+                    <h1 class="display-5">Votre panier est vide</h1>
+                    <p class=" pb-2 pb-md-0 mb-4 mb-md-5">Commencez votre shopping dès maintenant à travers nos
+                        articles</p>
+                    <a href="{{ path('app_products') }}" class="btn btn-lg btn-primary">Voir les produits</a>
+                </div>
+            </div>
+        {% endif %}
+    </main>
+
+
+{% endblock %}

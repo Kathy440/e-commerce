@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte - Market 974!{% endblock %}
+
+{% block content %}
+    <h1>Mon compte</h1>
+    <p>Bienvenue <b>{{ app.user.firstname }}</b> dans votre compte !</p>
+    <hr>
+    <a href="{{ path('app_account_password') }}">Modifier mon mot de passe</a>
+    <br>
+    <a href="{{ path('app_address') }}">Mes adresses</a>
+    <br>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="/admin">Vous êtes admin accèder au back-office</a>
+    {% endif %}
+{% endblock %}

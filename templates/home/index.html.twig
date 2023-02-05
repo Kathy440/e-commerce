@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block carousel %} {% endblock %}
+
+{% block content %}
+    <!-- Three columns of text below the carousel -->
+    <h2>Tendances actuels</h2>
+    <div class="row">
+
+        {% for product in products %}
+            <div class="col-md-3">
+                {% include 'product/single_product.html.twig' %}
+            </div>
+        {% endfor %}
+
+    </div>
+
+    <hr class="featurette-divider">
+    <!-- START THE FEATURETTES -->
+
+
+    <div class="row featurette">
+        <div class="col-md-7 order-md-2">
+            <h2 class="featurette-heading">Oh yeah !<span class="text-muted">Console à prix casser</span>
+            </h2>
+            <p class="lead">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
+                type and scrambled it to make a type specimen book.</p>
+        </div>
+        <div class="col-md-5 order-md-1">
+            <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+                 height="500" src="{{ asset('assets/img/games.jpg') }}" alt="">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+
+
+
+
+    <!-- /END THE FEATURETTES -->
+{% endblock %}
