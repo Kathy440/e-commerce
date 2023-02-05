@@ -30,7 +30,6 @@ class HomeController extends AbstractController
     #[Route('/feature', name: 'app_feature')]
     public function payement(): Response
     {
-        //return $this->redirectToRoute('app_order_payments');
         return $this->render('order/payement.html.twig');
     }
 }
